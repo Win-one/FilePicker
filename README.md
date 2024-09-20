@@ -1,4 +1,4 @@
-Thanks [utorialsAndroid](https://github.com/TutorialsAndroid)(https://github.com/TutorialsAndroid/FilePicker)
+Thanks [TutorialsAndroid](https://github.com/TutorialsAndroid)(https://github.com/TutorialsAndroid/FilePicker)
 
 **Library available at JitPack.io**
 
