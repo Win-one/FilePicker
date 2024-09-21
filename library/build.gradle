@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.github.Win-one'
-version = '1.0.7'
+version = '1.0.8'
 
 android {
     namespace 'com.oneskyer.library'
@@ -46,7 +46,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.Win-one'
                 artifactId = 'filepicker'
-                version = '1.0.7'
+                version = '1.0.8'
             }
         }
     }
