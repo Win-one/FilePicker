@@ -10,14 +10,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.oneskyer.library.R;
 import com.oneskyer.library.controller.NotifyItemChecked;
 import com.oneskyer.library.model.DialogConfigs;
 import com.oneskyer.library.model.DialogProperties;
 import com.oneskyer.library.model.FileListItem;
 import com.oneskyer.library.model.MarkedItemList;
-import com.oneskyer.library.widget.MaterialCheckbox;
-import com.oneskyer.library.widget.OnCheckedChangeListener;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,7 +79,7 @@ public class FileListAdapter extends BaseAdapter {
             view.setAnimation(animation);
         }
         if (item.isDirectory()) {
-            holder.type_icon.setImageResource(R.mipmap.ic_type_folder);
+            holder.type_icon.setImageResource(R.drawable.ic_type_folder);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 holder.type_icon.setColorFilter(context.getResources()
                         .getColor(R.color.colorPrimary, context.getTheme()));
@@ -92,7 +93,7 @@ public class FileListAdapter extends BaseAdapter {
                 holder.checkbox.setVisibility(View.VISIBLE);
             }
         } else {
-            holder.type_icon.setImageResource(R.mipmap.ic_type_file);
+            holder.type_icon.setImageResource(R.drawable.ic_type_file);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 holder.type_icon.setColorFilter(context.getResources()
                         .getColor(R.color.colorAccent, context.getTheme()));
@@ -128,21 +129,18 @@ public class FileListAdapter extends BaseAdapter {
             }
         }
 
-        holder.checkbox.setOnCheckedChangedListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(MaterialCheckbox checkbox, boolean isChecked) {
-                item.setMarked(isChecked);
-                if (item.isMarked()) {
-                    if (properties.selection_mode == DialogConfigs.MULTI_MODE) {
-                        MarkedItemList.addSelectedItem(item);
-                    } else {
-                        MarkedItemList.addSingleFile(item);
-                    }
+        holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            item.setMarked(isChecked);
+            if (item.isMarked()) {
+                if (properties.selection_mode == DialogConfigs.MULTI_MODE) {
+                    MarkedItemList.addSelectedItem(item);
                 } else {
-                    MarkedItemList.removeSelectedItem(item.getLocation());
+                    MarkedItemList.addSingleFile(item);
                 }
-                notifyItemChecked.notifyCheckBoxIsClicked();
+            } else {
+                MarkedItemList.removeSelectedItem(item.getLocation());
             }
+            notifyItemChecked.notifyCheckBoxIsClicked();
         });
         return view;
     }
@@ -150,7 +148,7 @@ public class FileListAdapter extends BaseAdapter {
     private class ViewHolder {
         ImageView type_icon;
         TextView name, type;
-        MaterialCheckbox checkbox;
+        MaterialCheckBox checkbox;
 
         ViewHolder(View itemView) {
             name = itemView.findViewById(R.id.fname);

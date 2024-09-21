@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.oneskyer.library.R;
 import com.oneskyer.library.controller.DialogSelectionListener;
 import com.oneskyer.library.controller.adapters.FileListAdapter;
@@ -25,8 +26,6 @@ import com.oneskyer.library.model.FileListItem;
 import com.oneskyer.library.model.MarkedItemList;
 import com.oneskyer.library.utils.ExtensionFilter;
 import com.oneskyer.library.utils.Utility;
-import com.oneskyer.library.widget.MaterialCheckbox;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -306,7 +305,7 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
                             Toast.LENGTH_SHORT).show();
                 }
             } else {
-                MaterialCheckbox fmark = view.findViewById(R.id.file_mark);
+                MaterialCheckBox fmark = view.findViewById(R.id.file_mark);
                 fmark.performClick();
             }
         }
