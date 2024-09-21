@@ -119,6 +119,7 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_main);
+        Objects.requireNonNull(getWindow()).setBackgroundDrawableResource(R.drawable.filepickerdialog_shape);
         listView = findViewById(R.id.fileList);
         select = findViewById(R.id.select);
         int size = MarkedItemList.getFileCount();
