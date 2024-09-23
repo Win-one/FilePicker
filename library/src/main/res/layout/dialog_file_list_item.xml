@@ -51,7 +51,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <com.google.android.material.checkbox.MaterialCheckBox
+        <com.oneskyer.library.widget.MaterialCheckbox
             android:id="@+id/file_mark"
             android:layout_width="@dimen/checkbox_dimens"
             android:layout_height="@dimen/checkbox_dimens"

@@ -3,12 +3,11 @@ package com.oneskyer.library.model;
 import java.util.Locale;
 
 /**
- * @author akshay sunil masram
+ * The model/container class holding file list data.
  */
 public class FileListItem implements Comparable<FileListItem> {
-
-    private String filename,location;
-    private boolean directory,marked;
+    private String filename, location;
+    private boolean directory, marked;
     private long time;
 
     public String getFilename() {
@@ -53,16 +52,15 @@ public class FileListItem implements Comparable<FileListItem> {
 
     @Override
     public int compareTo(FileListItem fileListItem) {
-        if(fileListItem.isDirectory()&&isDirectory()) {
+        if (fileListItem.isDirectory() && isDirectory()) {   //If the comparison is between two directories, return the directory with
+            //alphabetic order first.
             return filename.toLowerCase().compareTo(fileListItem.getFilename().toLowerCase(Locale.getDefault()));
-        }
-        else if(!fileListItem.isDirectory()&&!isDirectory()) {
+        } else if (!fileListItem.isDirectory() && !isDirectory()) {   //If the comparison is not between two directories, return the file with
+            //alphabetic order first.
             return filename.toLowerCase().compareTo(fileListItem.getFilename().toLowerCase(Locale.getDefault()));
-        }
-        else if(fileListItem.isDirectory()&&!isDirectory()) {
+        } else if (fileListItem.isDirectory() && !isDirectory()) {   //If the comparison is between a directory and a file, return the directory.
             return 1;
-        }
-        else {
+        } else {   //Same as above but order of occurence is different.
             return -1;
         }
     }

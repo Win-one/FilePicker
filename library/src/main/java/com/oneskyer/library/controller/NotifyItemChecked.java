@@ -1,8 +1,13 @@
 package com.oneskyer.library.controller;
 
 /**
- * @author akshay sunil masram
+ * Interface definition for a callback to be invoked
+ * when a checkbox is checked.
  */
 public interface NotifyItemChecked {
+
+    /**
+     * Called when a checkbox is checked.
+     */
     void notifyCheckBoxIsClicked();
 }
