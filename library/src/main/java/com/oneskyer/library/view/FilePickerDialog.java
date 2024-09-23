@@ -26,14 +26,12 @@ import com.oneskyer.library.model.FileListItem;
 import com.oneskyer.library.model.MarkedItemList;
 import com.oneskyer.library.utils.ExtensionFilter;
 import com.oneskyer.library.utils.Utility;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @author akshay sunil masram
- */
 public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickListener {
     private static final String TAG = FilePickerDialog.class.getSimpleName();
     private final Context context;
@@ -188,7 +186,6 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
         });
         listView.setAdapter(mFileListAdapter);
 
-        //Title method added in version 1.0.5
         setTitle();
     }
 
