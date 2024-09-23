@@ -1,6 +1,9 @@
 package com.oneskyer.library.utils;
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
+
 import com.oneskyer.library.model.FileListItem;
 import java.io.File;
 import java.util.ArrayList;
@@ -23,6 +26,21 @@ public class Utility {
         } else {   //Pre Marshmallow can rely on Manifest defined permissions.
             return true;
         }
+    }
+
+    @android.annotation.TargetApi(Build.VERSION_CODES.TIRAMISU)
+    public static boolean checkMediaAccessPermissions(Context context) {
+        String audioPermission = Manifest.permission.READ_MEDIA_AUDIO;
+        String imagesPermission = Manifest.permission.READ_MEDIA_IMAGES;
+        String videoPermission = Manifest.permission.READ_MEDIA_VIDEO;
+        // Check for permissions and if permissions are granted then it will return true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // You have the permissions, you can proceed with your media file operations.
+            return context.checkSelfPermission(audioPermission) == PackageManager.PERMISSION_GRANTED ||
+                    context.checkSelfPermission(imagesPermission) == PackageManager.PERMISSION_GRANTED ||
+                    context.checkSelfPermission(videoPermission) == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
     }
 
     /**

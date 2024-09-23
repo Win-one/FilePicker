@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.oneskyer.library.R;
 import com.oneskyer.library.controller.NotifyItemChecked;
 import com.oneskyer.library.model.DialogConfigs;
 import com.oneskyer.library.model.DialogProperties;
 import com.oneskyer.library.model.FileListItem;
 import com.oneskyer.library.model.MarkedItemList;
-import com.oneskyer.library.widget.MaterialCheckbox;
-import com.oneskyer.library.widget.OnCheckedChangeListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ public class FileListAdapter extends BaseAdapter {
     private Context context;
     private DialogProperties properties;
     private NotifyItemChecked notifyItemChecked;
+    private static final String TAG = FileListAdapter.class.getSimpleName();
 
     public FileListAdapter(ArrayList<FileListItem> listItem, Context context, DialogProperties properties) {
         this.listItem = listItem;
@@ -117,9 +118,9 @@ public class FileListAdapter extends BaseAdapter {
             }
         }
 
-        holder.fmark.setOnCheckedChangedListener(new OnCheckedChangeListener() {
+        holder.fmark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(MaterialCheckbox checkbox, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton checkbox, boolean isChecked) {
                 item.setMarked(isChecked);
                 if (item.isMarked()) {
                     if (properties.selection_mode == DialogConfigs.MULTI_MODE) {
@@ -139,13 +140,13 @@ public class FileListAdapter extends BaseAdapter {
     private class ViewHolder {
         ImageView type_icon;
         TextView name, type;
-        MaterialCheckbox fmark;
+        MaterialCheckBox fmark;
 
         ViewHolder(View itemView) {
-            name = (TextView) itemView.findViewById(R.id.fname);
-            type = (TextView) itemView.findViewById(R.id.ftype);
-            type_icon = (ImageView) itemView.findViewById(R.id.image_type);
-            fmark = (MaterialCheckbox) itemView.findViewById(R.id.file_mark);
+            name = itemView.findViewById(R.id.fname);
+            type = itemView.findViewById(R.id.ftype);
+            type_icon = itemView.findViewById(R.id.image_type);
+            fmark = itemView.findViewById(R.id.file_mark);
         }
     }
 
