@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
     android:focusable="false"
     app:cardBackgroundColor="@color/color_transparent"
     app:cardCornerRadius="10dp"
@@ -13,6 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:descendantFocusability="blocksDescendants"
         android:minHeight="?android:listPreferredItemHeight"
         android:orientation="horizontal">
@@ -57,6 +57,6 @@
             android:layout_height="@dimen/checkbox_dimens"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/checkbox_margin"
-            android:layout_marginRight="@dimen/checkbox_margin" />
+            android:layout_marginStart="@dimen/checkbox_margin" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

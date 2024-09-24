@@ -30,6 +30,7 @@ import com.oneskyer.library.utils.Utility;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickListener {
     private Context context;
@@ -77,6 +78,7 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_main);
+        Objects.requireNonNull(getWindow()).setBackgroundDrawableResource(R.drawable.filepickerdialog_shape);
         listView = (ListView) findViewById(R.id.fileList);
         select = (Button) findViewById(R.id.select);
         int size = MarkedItemList.getFileCount();
@@ -97,64 +99,53 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
         if (negativeBtnNameStr != null) {
             cancel.setText(negativeBtnNameStr);
         }
-        select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*  Select Button is clicked. Get the array of all selected items
-                 *  from MarkedItemList singleton.
-                 */
-                String paths[] = MarkedItemList.getSelectedPaths();
-                //NullPointerException fixed in v1.0.2
-                if (callbacks != null) {
-                    callbacks.onSelectedFilePaths(paths);
-                }
-                dismiss();
+        select.setOnClickListener(view -> {
+            /*  Select Button is clicked. Get the array of all selected items
+             *  from MarkedItemList singleton.
+             */
+            String paths[] = MarkedItemList.getSelectedPaths();
+            //NullPointerException fixed in v1.0.2
+            if (callbacks != null) {
+                callbacks.onSelectedFilePaths(paths);
             }
+            dismiss();
         });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cancel();
-            }
-        });
+        cancel.setOnClickListener(view -> cancel());
         mFileListAdapter = new FileListAdapter(internalList, context, properties);
-        mFileListAdapter.setNotifyItemCheckedListener(new NotifyItemChecked() {
-            @Override
-            public void notifyCheckBoxIsClicked() {
-                /*  Handler function, called when a checkbox is checked ie. a file is
-                 *  selected.
-                 */
-                positiveBtnNameStr = positiveBtnNameStr == null ?
-                        context.getResources().getString(R.string.choose_button_label) : positiveBtnNameStr;
-                int size = MarkedItemList.getFileCount();
-                if (size == 0) {
-                    select.setEnabled(false);
-                    int color;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        color = context.getResources().getColor(R.color.colorAccent, context.getTheme());
-                    } else {
-                        color = context.getResources().getColor(R.color.colorAccent);
-                    }
-                    select.setTextColor(Color.argb(128, Color.red(color), Color.green(color), Color.blue(color)));
-                    select.setText(positiveBtnNameStr);
+        mFileListAdapter.setNotifyItemCheckedListener(() -> {
+            /*  Handler function, called when a checkbox is checked ie. a file is
+             *  selected.
+             */
+            positiveBtnNameStr = positiveBtnNameStr == null ?
+                    context.getResources().getString(R.string.choose_button_label) : positiveBtnNameStr;
+            int size1 = MarkedItemList.getFileCount();
+            if (size1 == 0) {
+                select.setEnabled(false);
+                int color;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    color = context.getResources().getColor(R.color.colorAccent, context.getTheme());
                 } else {
-                    select.setEnabled(true);
-                    int color;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        color = context.getResources().getColor(R.color.colorAccent, context.getTheme());
-                    } else {
-                        color = context.getResources().getColor(R.color.colorAccent);
-                    }
-                    select.setTextColor(color);
-                    String button_label = positiveBtnNameStr + " (" + size + ") ";
-                    select.setText(button_label);
+                    color = context.getResources().getColor(R.color.colorAccent);
                 }
-                if (properties.selection_mode == DialogConfigs.SINGLE_MODE) {
-                    /*  If a single file has to be selected, clear the previously checked
-                     *  checkbox from the list.
-                     */
-                    mFileListAdapter.notifyDataSetChanged();
+                select.setTextColor(Color.argb(128, Color.red(color), Color.green(color), Color.blue(color)));
+                select.setText(positiveBtnNameStr);
+            } else {
+                select.setEnabled(true);
+                int color;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    color = context.getResources().getColor(R.color.colorAccent, context.getTheme());
+                } else {
+                    color = context.getResources().getColor(R.color.colorAccent);
                 }
+                select.setTextColor(color);
+                String button_label = positiveBtnNameStr + " (" + size1 + ") ";
+                select.setText(button_label);
+            }
+            if (properties.selection_mode == DialogConfigs.SINGLE_MODE) {
+                /*  If a single file has to be selected, clear the previously checked
+                 *  checkbox from the list.
+                 */
+                mFileListAdapter.notifyDataSetChanged();
             }
         });
         listView.setAdapter(mFileListAdapter);
