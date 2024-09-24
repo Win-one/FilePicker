@@ -3,11 +3,11 @@ package com.oneskyer.library.model;
 import java.util.HashMap;
 import java.util.Set;
 
-/**
- * @author akshay sunil masram
+/*  SingleTon containing <Key,Value> pair of all the selected files.
+ *  Key: Directory/File path.
+ *  Value: FileListItem Object.
  */
 public class MarkedItemList {
-
     private static HashMap<String,FileListItem> ourInstance = new HashMap<>();
 
     public static void addSelectedItem(FileListItem item) {
@@ -33,12 +33,12 @@ public class MarkedItemList {
 
     public static String[] getSelectedPaths() {
         Set<String> paths = ourInstance.keySet();
-        String[] strings = new String[paths.size()];
-        int i=0;
-        for(String path:paths)
-        {   strings[i++]=path;
+        String fpaths[] = new String[paths.size()];
+        int i = 0;
+        for(String path:paths) {
+            fpaths[i++] = path;
         }
-        return strings;
+        return fpaths;
     }
 
     public static int getFileCount() {

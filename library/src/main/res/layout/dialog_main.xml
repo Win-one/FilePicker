@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/filepickerdialog_shape">
+    android:background="@drawable/filepickerdialog_shape"
+    android:orientation="vertical">
 
     <include
-        layout="@layout/dialog_header"
-        android:id="@+id/header"/>
+        android:id="@+id/header"
+        layout="@layout/dialog_header" />
 
     <include
+        android:id="@+id/fileList"
         layout="@layout/dialog_file_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fileList"
         android:layout_above="@+id/footer"
-        android:dividerHeight="1dp"
         android:layout_below="@+id/header"
-        tools:listitem="@layout/dialog_file_list_item"/>
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:dividerHeight="1dp"
+        tools:listitem="@layout/dialog_file_list_item" />
 
     <include
-        layout="@layout/dialog_footer"
-        android:id="@+id/footer" />
+        android:id="@+id/footer"
+        layout="@layout/dialog_footer" />
 </RelativeLayout>
