@@ -79,8 +79,8 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_main);
         Objects.requireNonNull(getWindow()).setBackgroundDrawableResource(R.drawable.filepickerdialog_shape);
-        listView = (ListView) findViewById(R.id.fileList);
-        select = (Button) findViewById(R.id.select);
+        listView = findViewById(R.id.fileList);
+        select = findViewById(R.id.select);
         int size = MarkedItemList.getFileCount();
         if (size == 0) {
             select.setEnabled(false);
@@ -92,10 +92,10 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
             }
             select.setTextColor(Color.argb(128, Color.red(color), Color.green(color), Color.blue(color)));
         }
-        dname = (TextView) findViewById(R.id.dname);
-        title = (TextView) findViewById(R.id.title);
-        dir_path = (TextView) findViewById(R.id.dir_path);
-        Button cancel = (Button) findViewById(R.id.cancel);
+        dname = findViewById(R.id.dname);
+        title = findViewById(R.id.title);
+        dir_path = findViewById(R.id.dir_path);
+        Button cancel = findViewById(R.id.cancel);
         if (negativeBtnNameStr != null) {
             cancel.setText(negativeBtnNameStr);
         }
@@ -133,9 +133,9 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
                 select.setEnabled(true);
                 int color;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    color = context.getResources().getColor(R.color.colorAccent, context.getTheme());
+                    color = context.getResources().getColor(R.color.colorPrimary, context.getTheme());
                 } else {
-                    color = context.getResources().getColor(R.color.colorAccent);
+                    color = context.getResources().getColor(R.color.colorPrimary);
                 }
                 select.setTextColor(color);
                 String button_label = positiveBtnNameStr + " (" + size1 + ") ";

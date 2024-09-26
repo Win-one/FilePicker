@@ -6,8 +6,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/toolbar_image_margin"
         android:layout_marginLeft="@dimen/toolbar_image_margin"
         android:background="@null"
