@@ -90,7 +90,7 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
             } else {
                 color = context.getResources().getColor(R.color.colorAccent);
             }
-            select.setTextColor(Color.argb(128, Color.red(color), Color.green(color), Color.blue(color)));
+            select.setTextColor(Color.argb(255, Color.red(color), Color.green(color), Color.blue(color)));
         }
         dname = findViewById(R.id.dname);
         title = findViewById(R.id.title);
@@ -127,7 +127,7 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
                 } else {
                     color = context.getResources().getColor(R.color.colorAccent);
                 }
-                select.setTextColor(Color.argb(128, Color.red(color), Color.green(color), Color.blue(color)));
+                select.setTextColor(Color.argb(255, Color.red(color), Color.green(color), Color.blue(color)));
                 select.setText(positiveBtnNameStr);
             } else {
                 select.setEnabled(true);
