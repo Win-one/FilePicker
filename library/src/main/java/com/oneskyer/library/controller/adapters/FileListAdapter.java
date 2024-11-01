@@ -31,6 +31,7 @@ import java.util.Locale;
  * used to populate {@link ListView} with file info.
  */
 public class FileListAdapter extends BaseAdapter {
+    private static final String TAG = FileListAdapter.class.getSimpleName();
     private ArrayList<FileListItem> listItem;
     private Context context;
     private DialogProperties properties;
@@ -84,9 +85,9 @@ public class FileListAdapter extends BaseAdapter {
                 holder.type_icon.setColorFilter(context.getResources().getColor(R.color.colorPrimary));
             }
             if (properties.selection_type == DialogConfigs.FILE_SELECT) {
-                holder.fmark.setVisibility(View.INVISIBLE);
+                holder.checkBox.setVisibility(View.INVISIBLE);
             } else {
-                holder.fmark.setVisibility(View.VISIBLE);
+                holder.checkBox.setVisibility(View.VISIBLE);
             }
         } else {
             holder.type_icon.setImageResource(R.drawable.ic_type_file);
@@ -96,9 +97,9 @@ public class FileListAdapter extends BaseAdapter {
                 holder.type_icon.setColorFilter(context.getResources().getColor(R.color.colorAccent));
             }
             if (properties.selection_type == DialogConfigs.DIR_SELECT) {
-                holder.fmark.setVisibility(View.INVISIBLE);
+                holder.checkBox.setVisibility(View.INVISIBLE);
             } else {
-                holder.fmark.setVisibility(View.VISIBLE);
+                holder.checkBox.setVisibility(View.VISIBLE);
             }
         }
         holder.type_icon.setContentDescription(item.getFilename());
@@ -111,18 +112,18 @@ public class FileListAdapter extends BaseAdapter {
         } else {
             holder.type.setText(context.getString(R.string.last_edit) + sdate.format(date) + ", " + stime.format(date));
         }
-        if (holder.fmark.getVisibility() == View.VISIBLE) {
+        if (holder.checkBox.getVisibility() == View.VISIBLE) {
             if (i == 0 && item.getFilename().startsWith(context.getString(R.string.label_parent_dir))) {
-                holder.fmark.setVisibility(View.INVISIBLE);
+                holder.checkBox.setVisibility(View.INVISIBLE);
             }
             if (MarkedItemList.hasItem(item.getLocation())) {
-                holder.fmark.setChecked(true);
+                holder.checkBox.setChecked(true);
             } else {
-                holder.fmark.setChecked(false);
+                holder.checkBox.setChecked(false);
             }
         }
 
-        holder.fmark.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             item.setMarked(isChecked);
             if (item.isMarked()) {
                 if (properties.selection_mode == DialogConfigs.MULTI_MODE) {
@@ -141,13 +142,13 @@ public class FileListAdapter extends BaseAdapter {
     private class ViewHolder {
         ImageView type_icon;
         TextView name, type;
-        MaterialCheckBox fmark;
+        MaterialCheckBox checkBox;
 
         ViewHolder(View itemView) {
-            name = itemView.findViewById(R.id.fname);
-            type = itemView.findViewById(R.id.ftype);
+            name = itemView.findViewById(R.id.file_name);
+            type = itemView.findViewById(R.id.file_type);
             type_icon = itemView.findViewById(R.id.image_type);
-            fmark = itemView.findViewById(R.id.file_mark);
+            checkBox = itemView.findViewById(R.id.file_check);
         }
     }
 

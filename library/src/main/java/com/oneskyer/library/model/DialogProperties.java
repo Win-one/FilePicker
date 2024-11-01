@@ -73,6 +73,7 @@ public class DialogProperties {
      * Eg. String ext={"jpg","jpeg","png","gif"};
      */
     public String[] extensions;
+    public boolean show_hidden_files;
 
     public DialogProperties() {
         selection_mode = DialogConfigs.SINGLE_MODE;
@@ -81,5 +82,6 @@ public class DialogProperties {
         error_dir = new File(DialogConfigs.DEFAULT_DIR);
         offset = new File(DialogConfigs.DEFAULT_DIR);
         extensions = null;
+        show_hidden_files = false;
     }
 }

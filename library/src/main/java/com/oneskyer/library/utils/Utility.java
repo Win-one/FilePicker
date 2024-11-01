@@ -1,13 +1,16 @@
 package com.oneskyer.library.utils;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 
 import com.oneskyer.library.model.FileListItem;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Utility {
     /**
@@ -28,6 +31,21 @@ public class Utility {
         }
     }
 
+    @android.annotation.TargetApi(Build.VERSION_CODES.TIRAMISU)
+    public static boolean checkMediaAccessPermissions(Context context) {
+        String audioPermission = Manifest.permission.READ_MEDIA_AUDIO;
+        String imagesPermission = Manifest.permission.READ_MEDIA_IMAGES;
+        String videoPermission = Manifest.permission.READ_MEDIA_VIDEO;
+        // Check for permissions and if permissions are granted then it will return true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // You have the permissions, you can proceed with your media file operations.
+            return context.checkSelfPermission(audioPermission) == PackageManager.PERMISSION_GRANTED ||
+                    context.checkSelfPermission(imagesPermission) == PackageManager.PERMISSION_GRANTED ||
+                    context.checkSelfPermission(videoPermission) == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
+    }
+
     /**
      * Prepares the list of Files and Folders inside 'inter' Directory.
      * The list can be filtered through extensions. 'filter' reference
@@ -40,14 +58,15 @@ public class Utility {
      * @param filter       Extension filter class reference, for filtering files.
      * @return ArrayList of FileListItem containing file info of current directory.
      */
-    public static ArrayList<FileListItem> prepareFileListEntries(ArrayList<FileListItem> internalList, File inter, ExtensionFilter filter) {
+    public static ArrayList<FileListItem> prepareFileListEntries(ArrayList<FileListItem> internalList, File inter, ExtensionFilter filter, boolean show_hidden_files) {
         try {
             //Check for each and every directory/file in 'inter' directory.
             //Filter by extension using 'filter' reference.
 
-            for (File name : inter.listFiles(filter)) {
+            for (File name : Objects.requireNonNull(inter.listFiles(filter))) {
                 //If file/directory can be read by the Application
                 if (name.canRead()) {
+                    if (name.getName().startsWith(".") && !show_hidden_files) continue;
                     //Create a row item for the directory list and define properties.
                     FileListItem item = new FileListItem();
                     item.setFilename(name.getName());
