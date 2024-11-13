@@ -1,5 +1,6 @@
 package com.oneskyer.library.controller.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -31,10 +32,9 @@ import java.util.Locale;
  * used to populate {@link ListView} with file info.
  */
 public class FileListAdapter extends BaseAdapter {
-    private static final String TAG = FileListAdapter.class.getSimpleName();
-    private ArrayList<FileListItem> listItem;
-    private Context context;
-    private DialogProperties properties;
+    private final ArrayList<FileListItem> listItem;
+    private final Context context;
+    private final DialogProperties properties;
     private NotifyItemChecked notifyItemChecked;
 
     public FileListAdapter(ArrayList<FileListItem> listItem, Context context, DialogProperties properties) {
@@ -58,6 +58,7 @@ public class FileListAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     @SuppressWarnings("deprecation")
     public View getView(final int i, View view, ViewGroup viewGroup) {
@@ -139,7 +140,7 @@ public class FileListAdapter extends BaseAdapter {
         return view;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         ImageView type_icon;
         TextView name, type;
         MaterialCheckBox checkBox;

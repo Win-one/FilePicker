@@ -1,6 +1,7 @@
 package com.oneskyer.library.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -94,9 +95,10 @@ public class Utility {
      * @return A boolean notifying value wheter support library is imported as a
      * dependency or not.
      */
+    @SuppressLint("PrivateApi")
     private boolean hasSupportLibraryInClasspath() {
         try {
-            Class.forName("com.android.support:appcompat-v7");
+            Class.forName("androidx.appcompat:appcompat:1.7.0");
             return true;
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();

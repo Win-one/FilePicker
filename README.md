@@ -25,7 +25,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.Win-one:FilePicker:2.2.0'
+	        implementation 'com.github.Win-one:FilePicker:2.4.0'
 	}
 
 ### Usage
